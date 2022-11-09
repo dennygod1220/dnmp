@@ -35,5 +35,6 @@ RUN apk add --update npm
 # RUN adduser -D jason -u 1000
 # RUN chown -R jason:jason /var/www/html
 # USER jason
+RUN apk --no-cache add shadow && usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 COPY php.ini /usr/local/etc/php/conf.d/

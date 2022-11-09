@@ -63,7 +63,6 @@ services:
       - "3000:3000"
     volumes:
       - ./www:/var/www/html
-    user: ${CURRENT_UID}
     working_dir: /var/www/html
     depends_on:
       - mysql
@@ -83,6 +82,7 @@ services:
       - "3306:3306"
     networks:
       - lnmp
+    platform: linux/amd64 # Mac M1 M2 才要加這行
     volumes:
       - ./docker/mysql:/var/lib/mysql
     profiles:

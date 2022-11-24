@@ -30,6 +30,15 @@ server {
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
+        gzip_static on;
+
+        # for OPTIONS return these headers and HTTP 200 status
+        if ($request_method = OPTIONS) {
+            add_header Access-Control-Allow-Methods "*";
+            add_header Access-Control-Allow-Headers "*";
+            add_header Access-Control-Allow-Origin "*";
+            return 200;
+        }
     }
 
     #把 script 轉給 php container 處理    
@@ -47,5 +56,19 @@ server {
     error_page   500 502 503 504  /50x.html;
     location = /50x.html {
         root   /var/www/html;
+    }
+}
+
+## Node JS 代理
+server {
+    listen       80;
+    server_name myapp.node;
+
+    location / {
+        # 我的NodeJs是塞在PHP container中且Node App掛在9999:9999 port上 所以要用 php80:9999 ,
+        # 然後這邊一定要加上http:// 不然nginx會認為url格式錯誤直接炸掉
+        proxy_pass http://php80:9999; 
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
     }
 }

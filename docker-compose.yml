@@ -96,8 +96,8 @@ services:
     networks:
       - lnmp
     environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
+      PMA_HOSTS: mysql,35.229.140.195
+      PMA_PORTS: 3306,3306
       PMA_ARBITRARY: 1
       UPLOAD_LIMIT: 300M
     restart: always
@@ -188,6 +188,7 @@ services:
     tty: true           # <-- This option
     ports:
       - 19999:19999
+      - 5173:5173
     networks:
       - lnmp
     profiles:

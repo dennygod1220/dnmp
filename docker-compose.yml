@@ -125,59 +125,62 @@ services:
       - php80
       - php74
       - all
-  golang:
-    container_name: golang
-    build: 
-      context: ./docker/golang
-      args:
-        GOLANG_VERSION: $GOLANG_VERSION
-        GOLANG_USER: $GOLANG_USER 
-        GOLANG_UID: $GOLANG_UID 
+  sqlite:
+    image: dockerpinata/sqlite:latest
+    container_name: sqlite
+    tty: true           # <-- This option
+    networks:
+      - lnmp
+
+  # golang:
+  #   container_name: golang
+  #   build: 
+  #     context: ./docker/golang
+  #     args:
+  #       GOLANG_VERSION: $GOLANG_VERSION
+  #       GOLANG_USER: $GOLANG_USER 
+  #       GOLANG_UID: $GOLANG_UID 
     
-    ports:
-      - "8888:80"
-    volumes:
-      - ./golang:/go
-    networks:
-      - lnmp
-    # restart: always
-    # profiles:
-    #   - php80
-    #   - php74
-    #   - all
+  #   ports:
+  #     - "8888:80"
+  #   volumes:
+  #     - ./golang:/go
+  #   networks:
+  #     - lnmp
 
-  mongo:
-    image: mongo
-    # restart: always
-    ports:
-      - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: jason
-      MONGO_INITDB_ROOT_PASSWORD: jason
-    volumes:
-      - ./docker/mongo:/data/db
-    networks:
-      - lnmp
-    profiles:
-      - mongo
-      - all
 
-  mongo-express:
-    image: mongo-express
-    # restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: jason
-      ME_CONFIG_MONGODB_ADMINPASSWORD: jason
-      ME_CONFIG_MONGODB_URL: mongodb://jason:jason@mongo:27017/
-    depends_on:
-      - mongo
-    networks:
-      - lnmp
-    profiles:
-      - mongo
-      - all
+  # mongo:
+  #   image: mongo
+  #   # restart: always
+  #   ports:
+  #     - 27017:27017
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: jason
+  #     MONGO_INITDB_ROOT_PASSWORD: jason
+  #   volumes:
+  #     - ./docker/mongo:/data/db
+  #   networks:
+  #     - lnmp
+  #   profiles:
+  #     - mongo
+  #     - all
+
+  # mongo-express:
+  #   image: mongo-express
+  #   # restart: always
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: jason
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: jason
+  #     ME_CONFIG_MONGODB_URL: mongodb://jason:jason@mongo:27017/
+  #   depends_on:
+  #     - mongo
+  #   networks:
+  #     - lnmp
+  #   profiles:
+  #     - mongo
+  #     - all
   
   nodejs18:
     container_name: nodejs18

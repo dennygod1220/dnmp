@@ -25,6 +25,18 @@ services:
       - lnmp
     profiles:
       - php80
+      - all
+  nginxphp74:
+    container_name: nginxphp74
+    build: ./docker/nginxphp74
+    ports: 
+      - "8080:80"
+    volumes:
+      - ./docker/nginxphp74/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./www:/var/www/html
+    networks:
+      - lnmp
+    profiles:
       - php74
       - all
 
@@ -58,9 +70,9 @@ services:
     networks:
       - lnmp
     ports:
-      - "9999:9999" # nodejs 的某個專案
-      - "9000:9000"
-      - "3000:3000"
+      # - "9999:9999" # nodejs 的某個專案
+      - "9001:9000"
+      # - "3000:3000"
     volumes:
       - ./www:/var/www/html
     working_dir: /var/www/html

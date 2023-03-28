@@ -35,3 +35,8 @@ docker exec -it nginx /bin/sh
 docker exec -it php74 /bin/sh
 docker exec -it php80 /bin/sh
 ```
+## 快速重新Build後啟動
+有更改設定檔時重啟
+```
+docker-compose --profile php80 up -d --no-deps --force-recreate --build
+```

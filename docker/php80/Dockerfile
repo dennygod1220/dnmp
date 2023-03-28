@@ -29,6 +29,7 @@ RUN install-php-extensions intl
 
 RUN apk add --update nodejs npm
 RUN apk add --update npm
+RUN apk add --no-cache supervisor
 
 # USER root
 
@@ -41,3 +42,7 @@ RUN apk add --update npm
 RUN apk --no-cache add shadow && usermod -u 1000 www-data && groupmod -g 1000 www-data
 
 COPY php.ini /usr/local/etc/php/conf.d/
+
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+
+CMD ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisor/supervisord.conf"]

@@ -78,6 +78,7 @@ services:
     volumes:
       - ./www:/var/www/html
       - ./docker/supervisor:/etc/supervisor/conf.d
+      - ./log:/var/log
     working_dir: /var/www/html
     depends_on:
       - mysql

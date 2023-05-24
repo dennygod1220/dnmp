@@ -1,0 +1,10 @@
+[program:shopapi]
+# directory=/var/www/html/joymap/shopapi-test
+command=/usr/local/bin/php /var/www/html/joymap/shopapi/artisan queue:work --tries=1
+autostart=true
+autorestart=true
+user=root
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/shopapi.log
+process_name=%(program_name)s_%(process_num)s

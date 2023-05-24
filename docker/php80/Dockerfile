@@ -15,7 +15,7 @@ RUN docker-php-ext-install zip
 
 RUN chmod +x /usr/local/bin/install-php-extensions
 RUN install-php-extensions gd 
-# RUN install-php-extensions xdebug
+RUN install-php-extensions xdebug
 RUN install-php-extensions @composer-2.0.9 
 RUN install-php-extensions @fix_letsencrypt
 RUN install-php-extensions zip
@@ -23,6 +23,7 @@ RUN install-php-extensions mysqli
 RUN install-php-extensions pdo_mysql
 RUN install-php-extensions redis
 RUN install-php-extensions intl
+RUN install-php-extensions imagick
 # RUN install-php-extensions mongodb
 # RUN install-php-extensions pgsql
 # RUN install-php-extensions pdo_pgsql

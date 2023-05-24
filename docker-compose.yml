@@ -116,7 +116,7 @@ services:
       PMA_HOSTS: mysql,35.229.140.195
       PMA_PORTS: 3306,3306
       PMA_ARBITRARY: 1
-      UPLOAD_LIMIT: 600M
+      UPLOAD_LIMIT: 1000M
     volumes:
       - ./docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
 
@@ -145,12 +145,13 @@ services:
       - php80
       - php74
       - all
-  # sqlite:
-  #   image: dockerpinata/sqlite:latest
-  #   container_name: sqlite
-  #   tty: true           # <-- This option
-  #   networks:
-  #     - lnmp
+  sqlite:
+    image: dockerpinata/sqlite:latest
+    container_name: sqlite
+    tty: true           # <-- This option
+    platform: linux/amd64 # Mac M1 M2 才要加這行
+    networks:
+      - lnmp
 
   # golang:
   #   container_name: golang
